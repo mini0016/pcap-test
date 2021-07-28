@@ -46,10 +46,10 @@ int main(int argc, char* argv[])
 
     while (true)    {
         struct pcap_pkthdr* header;
-        const u_char* packet;
+        const u_char* _pakcet;
 
 
-        int res = pcap_next_ex(pcap, &header, &packet);
+        int res = pcap_next_ex(pcap, &header, &_pakcet);
 
         if (res == 0) continue;
         if (res == PCAP_ERROR || res == PCAP_ERROR_BREAK) {
@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
         }
         printf("%u bytes captured\n", header->caplen);
 
-        Parse_Ethernet(packet);
+        Parse_Ethernet(_pakcet);
     }
 
     pcap_close(pcap);
@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
 void Parse_Ethernet(const u_char * pakcet)
 {
     printf( "    \n================================\n");
-    printf( " Start Parsing Packet\n\n");
+    printf( " Start Parsing _pakcet\n\n");
 
     struct libnet_ethernet_hdr * parse = (struct libnet_ethernet_hdr*)(pakcet);
 
@@ -84,7 +84,7 @@ void Parse_Ethernet(const u_char * pakcet)
 
     if( ether_type == 0x0800){ //EtherType: IPv4 0x0800
         printf( " ================================\n ");
-        printf( "IPv4 packet Detected\n");
+        printf( "IPv4 _pakcet Detected\n");
         Parse_IPv4( pakcet + sizeof(struct libnet_ethernet_hdr) );
     }
 
@@ -94,7 +94,7 @@ void Parse_Ethernet(const u_char * pakcet)
     }
 
 
-    printf( " \n\n End Parsing Packet\n");
+    printf( " \n\n End Parsing _pakcet\n");
     printf( " ================================\n\n ");
 
 }
